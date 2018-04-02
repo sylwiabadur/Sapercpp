@@ -1,0 +1,52 @@
+{
+    "version": "2.0.0",
+    "command": "g++",
+    "isShellCommand": true,
+    "suppressTaskName": true,
+    "tasks": [{
+            "taskName": "build hello world",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "main.cpp",
+                "Plansza.cpp",
+                "Pole.cpp",
+                "Intro.cpp",
+                "Score.cpp",
+                "GameManager.cpp",
+                "-g"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "taskName": "graphics",
+            "type": "shell",
+            "command": "g++",
+            "isBuildCommand": true,
+            "args": [
+                "-o a.exe",
+                "main.cpp",
+                "Plansza.cpp",
+                "Pole.cpp",
+                "Intro.cpp",
+                "Score.cpp",
+                "GameManager.cpp",
+                "-g",
+                "-std=c++11",
+                "-LD:\\SFML-2.4.2\\lib",
+                "-ID:\\SFML-2.4.2\\include",
+                "-lsfml-graphics-d",
+                "-lsfml-audio-d",
+                "-lsfml-window-d",
+                "-lsfml-system-d"
+            ],
+
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ],
+    "showOutput": "always"
+}
