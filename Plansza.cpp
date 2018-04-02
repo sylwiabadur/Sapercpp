@@ -225,6 +225,7 @@ void Plansza::revealPos(int x, int y, int width, int height)
     {
         deployMines(30, 1);
         if (tab[rzad][kolumna].odczytMiny() == true)
+        
         {
             tab[rzad][kolumna].usunMine();
         }
@@ -232,7 +233,7 @@ void Plansza::revealPos(int x, int y, int width, int height)
     firstTime = false;
     this->reveal(rzad, kolumna);
     czyWygrana();
-}
+} 
 
 void Plansza::setFlagPos(int x, int y,int width,int height)
 {
@@ -242,6 +243,8 @@ void Plansza::setFlagPos(int x, int y,int width,int height)
     this->tab[rzad][kolumna].postawFlage();
     czyWygrana();
 }
+
+
 void Plansza::ustawKoniec()
 {
     for (int i = 0; i < m; i++)
