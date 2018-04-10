@@ -2,6 +2,7 @@
 #include "Plansza.h"
 #include "Pole.h"
 #include "Intro.h"
+#include "GameManager.h"
 #include <iostream>
 Intro::Intro()
 {
@@ -21,3 +22,18 @@ void Intro::draw(sf::RenderWindow &win)
     win.draw(rect);
     win.draw(text);
 }
+bool Intro::handleEvent(sf::Event &event) {
+    switch (event.type)
+    {
+        case sf::Event::KeyPressed:
+        {
+            if (event.key.code == sf::Keyboard::Space)
+            {
+                return true;
+            }
+        }
+       
+    } 
+    return false;
+}
+    

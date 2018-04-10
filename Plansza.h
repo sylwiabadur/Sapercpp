@@ -33,10 +33,13 @@ class Plansza
     void ustawPrzegrana();
     void ustawWygrana();
     void czyWygrana();
+    bool handleEvent(sf::Event &event,int width,int height);
     bool stanKoncowy();
     static sf::Font font;
     static sf::RenderWindow *window;
+   // static sf::Event event;
     static bool wygrana;
+    bool czekajPoGrze = false;
     static int licznikRuchow;
 };
 

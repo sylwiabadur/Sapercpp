@@ -8,7 +8,7 @@
 GameManager::GameManager(Intro &in, Score &sc, Plansza &pln) : intro(in), score(sc), pln(pln)
 {
     //state = GameManager::GameState::INTRO;
-    state = INTRO;
+    state=INTRO;
     width=600;
     height=600;
 }
@@ -24,54 +24,79 @@ void GameManager::debug_changeState()
         state = SCORE;
         break;
     case SCORE:
-        // oops - tu powinniśmy jakoś zamknąć aplikację
+    Plansza::window->close();
         break;
     }
 }
 
 void GameManager::handleEvent(sf::Event &event)
 {
-    switch (event.type)
+    bool change = false;
+    switch (state)
     {
-    case sf::Event::MouseButtonPressed:
-    {
-        switch (event.mouseButton.button)
-        {
-        case sf::Mouse::Left:
-        {
-            pln.revealPos(event.mouseButton.x, event.mouseButton.y,width,height);
+        case INTRO:
+            change = intro.handleEvent(event);
+            break;
+        case GAME:
+            change = pln.handleEvent(event,width,height);
+            break;
+        case SCORE:
+            change = score.handleEvent(event);
             break;
         }
-        case sf::Mouse::Right:
-        {
-            pln.setFlagPos(event.mouseButton.x, event.mouseButton.y,width,height);
-            break;
-        }
-        }
-    }
-    case sf::Event::KeyPressed:
-    {
-        if (event.key.code == sf::Keyboard::Space)
-        {
+        if(change)
             debug_changeState();
-        }
-    }
-    }
 }
 
-void GameManager::draw(sf::RenderWindow &window, int width, int height)
+void GameManager::handleMouse(sf::Event &event)
+{
+    switch(event.type)
+    {
+        case sf::Event::MouseButtonPressed:
+        {
+            switch (event.mouseButton.button)
+            {
+                case sf::Mouse::Left:
+                {
+                    pln.revealPos(event.mouseButton.x, event.mouseButton.y,width,height);
+                    break;
+                }
+                case sf::Mouse::Right:
+                {
+                    pln.setFlagPos(event.mouseButton.x, event.mouseButton.y,width,height);
+                    break;
+                }
+            }
+        }}
+}
+
+
+void GameManager::draw(sf::RenderWindow &window, int width, int height,sf::Event &event)
 {
     switch (state)
     {
     case INTRO:
         intro.draw(window);
         break;
-    case GAME:
-        pln.displayGraphics(window, height, width);
-        pln.drawLines(window,height,width);
+        case GAME:
+            pln.displayGraphics(window, height, width);
+            pln.drawLines(window,height,width);
         break;
     case SCORE:
         score.draw(window);
         break;
     }
+}
+void GameManager::updateState(sf::Event &event) {
+
+ //   dostaje wiadomosc od intro i od score i zmienia stan
+    if(score.handleEvent(event))
+    {
+        debug_changeState();
+    }
+    else if(intro.handleEvent(event))
+    {
+        debug_changeState();
+    }
+
 }

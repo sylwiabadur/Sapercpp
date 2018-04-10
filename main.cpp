@@ -103,6 +103,7 @@ int main()
     Score score;
     Plansza::font = font;
     Plansza::window = &window;
+  //  Plansza::event= event;
     GameManager gm(intro, score, pln);
 
     // Start the game loop
@@ -119,7 +120,7 @@ int main()
             gm.handleEvent(event);
         }
         window.clear();
-        gm.draw(window, width, height);
+        gm.draw(window, width, height,event);
         window.display();
     }
 

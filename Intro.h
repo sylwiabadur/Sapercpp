@@ -14,6 +14,7 @@ class Intro
   public:
     Intro();
     void draw(sf::RenderWindow &win);
+    bool handleEvent(sf::Event &event);
   };
   
 #endif //UNTITLED5_INTRO_H

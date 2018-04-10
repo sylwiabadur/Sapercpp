@@ -9,10 +9,11 @@ class Score
 {
   int width;
   int height;
-    sf::RectangleShape rect;
+  sf::RectangleShape rect;
 
   public:
     Score();
     void draw(sf::RenderWindow &win);
+    bool handleEvent(sf::Event &event);
 };
 #endif //UNTITLED5_SCORE_H

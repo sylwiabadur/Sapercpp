@@ -44,3 +44,16 @@ void Score::draw(sf::RenderWindow &win)
     win.draw(text1);
     win.draw(text2);
 }
+bool Score::handleEvent(sf::Event &event) {
+    switch (event.type)
+    {
+        case sf::Event::KeyPressed:
+        {
+            if (event.key.code == sf::Keyboard::Escape)
+            {
+                return true;
+            }
+        }
+    }
+    return false;
+}

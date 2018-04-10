@@ -3,7 +3,7 @@
 #include "Pole.h"
 #include <iostream>
 #include <ctime>
-#include <iomanip>
+#include <iomanip> 
 Plansza::Plansza()
 {
     m = 10; //wierszy
@@ -15,6 +15,7 @@ int Plansza::licznikRuchow=0;
 bool Plansza::wygrana =false;
 sf::Font Plansza::font;
 sf::RenderWindow *Plansza::window;
+//sf::Event Plansza::event;
 bool Plansza::czyPlansza(int x, int y)
 {
     return (x < m && y < n && x >= 0 && y >= 0);
@@ -201,6 +202,10 @@ void Plansza::displayGraphics(sf::RenderWindow &window, int width, int height)
             window.draw(text);
         }
     }
+    // if(wygrana || koniecGry)
+    // {
+    //     sleep(sf::milliseconds(3000));
+    // }
 }
 void Plansza::drawLines(sf::RenderWindow &window, int width, int height)
 {
@@ -266,7 +271,7 @@ void Plansza::ustawKoniec()
         ustawWygrana();
     }
 }
-void Plansza::ustawPrzegrana()
+void Plansza::ustawPrzegrana() //wyswietlenie tekstu przy revealowaniu - nie dziala
 {
     Plansza::window;
     sf::Text text;
@@ -278,7 +283,7 @@ void Plansza::ustawPrzegrana()
     text.setPosition(150, 270);
     window->draw(text);
 }
-void Plansza::ustawWygrana()
+void Plansza::ustawWygrana() //wyswietlenie tekstu przy revealowaniu - nie dziala
 {
     Plansza::window;
     sf::Text text;
@@ -317,6 +322,36 @@ void Plansza::czyWygrana()
     if (m == l && m != 0 && l != 0 || (m == f && m != 0 && f != 0))
     {
         Plansza::wygrana = true;
-        ustawKoniec();
     }
+}
+bool Plansza::handleEvent(sf::Event &event,int width,int height) {
+    switch(event.type)
+    {
+        case sf::Event::MouseButtonPressed:
+        {
+            switch (event.mouseButton.button)
+            {
+                case sf::Mouse::Left:
+                {
+                    revealPos(event.mouseButton.x, event.mouseButton.y,width,height);
+                    break;
+                }
+                case sf::Mouse::Right:
+                {
+                    setFlagPos(event.mouseButton.x, event.mouseButton.y,width,height);
+                    break;
+                }
+            }
+        }
+    }
+    if(czekajPoGrze){
+        sleep(sf::milliseconds(2000));
+        return true;
+    } 
+    else if (wygrana || koniecGry)
+    {
+        ustawKoniec();
+        czekajPoGrze = true;  
+    }
+    return false;
 }
